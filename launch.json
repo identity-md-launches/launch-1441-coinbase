@@ -1,0 +1,24 @@
+{
+  "kind": "custom_token",
+  "token": {
+    "contract": "CoinbaseToken",
+    "name": "Coinbase",
+    "symbol": "COINBASE",
+    "decimals": 18,
+    "constructorArgs": [],
+    "totalSupply": "1000000000000000000000000000"
+  },
+  "contracts": [],
+  "pool": {
+    "pairedCurrency": "0x0000000000000000000000000000000000000000",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "economics": {
+    "poolBps": 8800,
+    "initialMarketCapWei": "10000000000000000000",
+    "remainderTo": "0x12a7aad083cef06fef7c295514b52fc8bc81960d"
+  },
+  "notes": "CoinbaseToken (src/CoinbaseToken.sol) is a plain fixed-supply OpenZeppelin v5.4.0 ERC-20 named Coinbase with symbol COINBASE and 18 decimals. Its constructor takes no arguments and mints the whole supply of 1,000,000,000 tokens (1000000000000000000000000000 minor units) once to msg.sender, the factory. There is no owner, minter, pause, blacklist, transfer fee, burn hook, proxy or upgrade path, and no further minting is possible, so the launch flows (the swarm's share to the MerkleDistributor, the single-sided pool seed through the PoolManager, and the remainder to economics.remainderTo) move exactly what they say. No application contracts are deployed with this launch."
+}
