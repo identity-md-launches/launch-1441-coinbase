@@ -16,6 +16,7 @@ contract TokenFactoryProbe {
     }
 }
 
+/// forge-config: default.fuzz.runs = 1000
 contract CoinbaseTokenTest is Test {
     uint256 private constant SUPPLY = 1_000_000_000_000_000_000_000_000_000;
 
@@ -363,7 +364,8 @@ contract CoinbaseTokenTest is Test {
     }
 
     function testFuzz_TransferConservesSupply(address recipient, uint256 amount) public {
-        vm.assume(recipient != address(0) && recipient != address(this));
+        recipient = address(uint160(bound(uint160(recipient), 1, type(uint160).max)));
+        if (recipient == address(this)) recipient = alice;
         amount = bound(amount, 0, SUPPLY);
         assertTrue(token.transfer(recipient, amount));
         assertEq(token.balanceOf(recipient), amount);
@@ -399,7 +401,7 @@ contract CoinbaseTokenTest is Test {
     }
 
     function testFuzz_UnapprovedSpenderCannotMoveFunds(address caller, uint256 amount) public {
-        vm.assume(caller != address(0));
+        caller = address(uint160(bound(uint160(caller), 1, type(uint160).max)));
         amount = bound(amount, 1, SUPPLY);
         token.transfer(alice, amount);
         vm.expectRevert(abi.encodeWithSelector(IERC20Errors.ERC20InsufficientAllowance.selector, caller, 0, amount));
